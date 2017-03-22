@@ -1,0 +1,49 @@
+<h1>Sign Up</h1>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="row">
+    <div class="col-xs-6">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" [ngModel]="user.username" name="username" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <label for="email">E-Mail</label>
+      <input type="text" class="form-control" id="email" [ngModel]="user.email" name="email" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" #email="ngModel">
+      <div *ngIf="!email.valid" class="text-danger">
+        Invalid email
+      </div>
+    </div>
+  </div>
+  <div ngModelGroup="password">
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="inputPassword3">Password</label>
+        <input type="password" class="form-control" id="inputPassword3" name="password" [ngModel]="user.password" required validateEqual="confirmPassword" reverse="true" #password="ngModel">
+        <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+        Password is required
+      </small>
+      </div>
+      <div class="col-xs-6">
+        <label for="inputPassword3">Retype password</label>
+        <input type="password" class="form-control" id="inputPassword3" name="confirmPassword" [ngModel]="user.confirmPassword" required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+        <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
+        Password mismatch
+      </small>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="radio" *ngFor="let g of genders">
+        <label>
+      <input type="radio" name="gender" [ngModel]="user.gender" [value]="g">
+      {{g}}
+    </label>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+    </div>
+  </div>
+</form>

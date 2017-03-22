@@ -1,0 +1,28 @@
+<div class="container col-md-4 col-md-offset-4">
+<form novalidate (ngSubmit)="onSubmit()" [formGroup]="user">
+  <label>
+      <span>Email address</span>
+      <input type="email" class="form-control" placeholder="Your email address" formControlName="email">
+    </label>
+    <div class="error"
+      *ngIf="user.get('email').hasError('required') && user.get('email').touched">
+      Email is required
+    </div>
+    <div class="error"
+      *ngIf="user.get('email').hasError('pattern') && user.get('email').touched">
+      Email is invalid
+    </div>
+    <label>
+      <span>Password</span>
+      <input type="password"  class="form-control" placeholder="enter your password" formControlName="password">
+    </label>
+    <div
+      class="error"
+      *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+    password is required
+    </div>
+    <!-- <div *ngIf="mailAddress.dirty && !mailAddress.valid" class="alert alert-danger"> -->
+  <button type="submit" [disabled]="user.invalid" class="btn btn-primary">Sign In</button>
+</form>
+  <!-- <button type="submit">Sign Up</button> -->
+</div>
